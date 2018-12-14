@@ -246,7 +246,8 @@ namespace QBittorrent.Client
                     query.SortBy,
                     query.ReverseSort,
                     query.Limit,
-                    query.Offset), token)
+                    query.Offset,
+                    query.Hashes), token)
                 .ConfigureAwait(false);
 
             var json = await _client.GetStringAsync(uri, token).ConfigureAwait(false);

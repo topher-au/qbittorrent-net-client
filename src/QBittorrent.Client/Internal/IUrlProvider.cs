@@ -17,7 +17,8 @@ namespace QBittorrent.Client.Internal
             string sort, 
             bool reverse, 
             int? limit,
-            int? offset);
+            int? offset,
+            IEnumerable<string> hashes);
 
         Uri GetTorrentProperties(string hash);
 

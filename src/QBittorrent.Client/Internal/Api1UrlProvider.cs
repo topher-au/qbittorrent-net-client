@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using QBittorrent.Client.Extensions;
 
 namespace QBittorrent.Client.Internal
@@ -21,7 +22,8 @@ namespace QBittorrent.Client.Internal
             string sort, 
             bool reverse, 
             int? limit, 
-            int? offset)
+            int? offset,
+            IEnumerable<string> hashes)
         {
             return Create("/query/torrents",
                 ("filter", filter.ToString().ToLowerInvariant()),
@@ -29,7 +31,8 @@ namespace QBittorrent.Client.Internal
                 ("sort", sort),
                 ("reverse", reverse.ToLowerString()),
                 ("limit", limit?.ToString()),
-                ("offset", offset?.ToString()));
+                ("offset", offset?.ToString()),
+                ("hashes", hashes == null ? null : string.Join("|", hashes)));
         }
 
         public Uri GetTorrentProperties(string hash) => Create($"/query/propertiesGeneral/{hash}");

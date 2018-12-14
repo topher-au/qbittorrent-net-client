@@ -17,7 +17,7 @@ namespace QBittorrent.Client.Internal
 
         public Uri QBittorrentVersion() => Create("/api/v2/app/version");
 
-        public Uri GetTorrentList(TorrentListFilter filter, string category, string sort, bool reverse, int? limit, int? offset)
+        public Uri GetTorrentList(TorrentListFilter filter, string category, string sort, bool reverse, int? limit, int? offset, IEnumerable<string> hashes)
         {
             return Create("/api/v2/torrents/info",
                 ("filter", filter.ToString().ToLowerInvariant()),
@@ -25,7 +25,8 @@ namespace QBittorrent.Client.Internal
                 ("sort", sort),
                 ("reverse", reverse.ToLowerString()),
                 ("limit", limit?.ToString()),
-                ("offset", offset?.ToString()));
+                ("offset", offset?.ToString()),
+                ("hashes", hashes == null ? null : string.Join("|", hashes)));
         }
 
         public Uri GetTorrentProperties(string hash) => Create("/api/v2/torrents/properties", ("hash", hash));
